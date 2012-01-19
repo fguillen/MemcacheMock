@@ -16,7 +16,7 @@ class MemcacheMockTest < Test::Unit::TestCase
   end
 
   def test_incr
-    @cache.set( "key", "original_value", nil )
+    @cache.set( "key", "original_value" )
     @cache.expects( :append ).with( "key", "value" )
 
     @cache.incr( "key", "value", nil, nil )
@@ -27,14 +27,14 @@ class MemcacheMockTest < Test::Unit::TestCase
   end
 
   def test_get
-    @cache.set( "key", "value", nil )
+    @cache.set( "key", "value" )
     assert_equal( "value", @cache.get( "key" ) )
   end
 
   def test_get_multi
-    @cache.set( "key1", "value1", nil )
-    @cache.set( "key2", "value2", nil )
-    @cache.set( "key3", "value3", nil )
+    @cache.set( "key1", "value1" )
+    @cache.set( "key2", "value2" )
+    @cache.set( "key3", "value3" )
 
     result = @cache.get_multi( ["key1", "key2", "key3", "key4" ] )
 
@@ -44,19 +44,19 @@ class MemcacheMockTest < Test::Unit::TestCase
   end
 
   def test_set
-    @cache.set( "key", "value", nil )
+    @cache.set( "key", "value" )
     assert_equal( "value", @cache.get( "key" ) )
   end
 
   def test_append
-    @cache.set( "key", "value1", nil )
+    @cache.set( "key", "value1" )
     @cache.append( "key", "|value2" )
 
     assert_equal( "value1|value2", @cache.get( "key" ) )
   end
 
   def test_flush
-    @cache.set( "key", "value1", nil )
+    @cache.set( "key", "value1" )
     @cache.flush
     assert_equal( nil, @cache.get( "key" ) )
   end

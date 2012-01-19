@@ -21,7 +21,7 @@ class MemcacheMock
     @values.select { |k, v| keys.include?( k ) }
   end
 
-  def set( key, value, ttl, options = {} )
+  def set( key, value, ttl = nil, options = {} )
     @values[key] = value
   end
 
