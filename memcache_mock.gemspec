@@ -5,9 +5,9 @@ require "memcache_mock/version"
 Gem::Specification.new do |s|
   s.name        = "memcache_mock"
   s.version     = MemcacheMock::VERSION
-  s.authors     = ["Fernando Guillen"]
-  s.email       = ["fguillen.mail@gmail.com"]
-  s.homepage    = ""
+  s.authors     = ["Fernando Guillen", "Carlos Moutinho"]
+  s.email       = ["fguillen.mail@gmail.com", "carlosmoutinho@gmail.com"]
+  s.homepage    = "https://github.com/fguillen/MemcacheMock"
   s.summary     = "Simple key/value mocked storage system"
   s.description = "Simple key/value mocked storage system"
 
