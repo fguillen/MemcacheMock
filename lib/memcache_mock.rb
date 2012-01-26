@@ -14,7 +14,7 @@ class MemcacheMock
   end
 
   def get( key )
-    @values[key] ? @values[key].to_s : nil
+    @values.fetch(key, nil)
   end
 
   def get_multi( keys )
@@ -26,7 +26,7 @@ class MemcacheMock
   end
 
   def update( key, default, ttl = nil, options = nil )
-    @values[key] = yield( @values[key] || default )
+    @values[key] = yield( @values.fetch(key, default ))
   end
 
   def append( key, value )
