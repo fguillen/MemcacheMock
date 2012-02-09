@@ -34,8 +34,16 @@ class MemcacheMock
       @values[key] += value
     end
   end
+  
+  def delete(key)
+    @values.delete(key)
+  end
 
   def flush
     @values.clear
+  end
+
+  def flush_all
+    flush
   end
 end
