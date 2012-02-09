@@ -60,4 +60,11 @@ class MemcacheMockTest < Test::Unit::TestCase
     @cache.flush
     assert_equal( nil, @cache.get( "key" ) )
   end
+  
+  def test_delete
+    @cache.set( "key", "value1" )
+    assert_equal( "value1", @cache.get( "key" ) )
+    @cache.delete( "key" )
+    assert_nil( @cache.get( "key" ) )
+  end
 end
