@@ -17,7 +17,7 @@ class MemcacheMock
     @values.fetch(key, nil)
   end
 
-  def get_multi( keys )
+  def get_multi( keys, options = nil )
     @values.select { |k, v| keys.include?( k ) }
   end
 
@@ -28,7 +28,25 @@ class MemcacheMock
   def update( key, default, ttl = nil, options = nil )
     @values[key] = yield( @values.fetch(key, default ))
   end
-
+  
+  def add( key, value, ttl=nil, options = nil )
+    unless @values.include? key
+      @values[key] = value
+      true
+    else
+      false
+    end
+  end
+  
+  def cas( key, ttl = nil, options = nil )
+    if @values.include? key
+      @values[key] = yield @values[key]
+      true
+    else
+      nil
+    end
+  end
+  
   def append( key, value )
     if @values[key]
       @values[key] += value
