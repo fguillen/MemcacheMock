@@ -55,12 +55,25 @@ class MemcacheMockTest < Test::Unit::TestCase
     assert_equal( "value1|value2", @cache.get( "key" ) )
   end
 
+  def test_fetch
+    assert_equal( nil, @cache.fetch( "key0" ) )
+
+    @cache.set( "key1", "value1" )
+    assert_equal( "value1", @cache.fetch( "key1" ) )
+
+    assert_equal( "value1", @cache.fetch( "key1" ) { "value2" } )
+    assert_equal( "value2", @cache.fetch( "key2" ) { "value2" } )
+
+    @cache.fetch( "key3" ) { "value3" }
+    assert_equal( "value3", @cache.get( "key3" ) )
+  end
+
   def test_flush
     @cache.set( "key", "value1" )
     @cache.flush
     assert_equal( nil, @cache.get( "key" ) )
   end
-  
+
   def test_delete
     @cache.set( "key", "value1" )
     assert_equal( "value1", @cache.get( "key" ) )
