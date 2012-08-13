@@ -34,9 +34,19 @@ class MemcacheMock
       @values[key] += value
     end
   end
-  
+
   def delete(key)
     @values.delete(key)
+  end
+
+  def fetch( key, ttl=nil, options=nil )
+    val = get( key )
+
+    if val.nil? && block_given?
+      val = yield
+      set( key, val )
+    end
+    val
   end
 
   def flush
