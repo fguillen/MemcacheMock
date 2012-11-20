@@ -17,7 +17,8 @@ class MemcacheMock
     @values.fetch(key, nil)
   end
 
-  def get_multi( keys )
+  def get_multi( *keys )
+    keys.flatten!
     @values.select { |k, v| keys.include?( k ) }
   end
 

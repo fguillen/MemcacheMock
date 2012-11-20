@@ -43,6 +43,16 @@ class MemcacheMockTest < Test::Unit::TestCase
     assert_equal( nil, result["key4"] )
   end
 
+  def test_get_multi_splat_args
+    @cache.set( "key1", "value1" )
+    @cache.set( "key2", "value2" )
+
+    result = @cache.get_multi("key1", "key2")
+
+    assert_equal( "value1", result["key1"] )
+    assert_equal( "value2", result["key2"] )
+  end
+
   def test_set
     @cache.set( "key", "value" )
     assert_equal( "value", @cache.get( "key" ) )
