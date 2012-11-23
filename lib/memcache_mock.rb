@@ -57,4 +57,7 @@ class MemcacheMock
   def flush_all
     flush
   end
+
+  def touch(key, ttl = nil)
+  end
 end
