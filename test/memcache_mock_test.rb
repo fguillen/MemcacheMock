@@ -90,4 +90,9 @@ class MemcacheMockTest < Test::Unit::TestCase
     @cache.delete( "key" )
     assert_nil( @cache.get( "key" ) )
   end
+
+  def test_touch
+    @cache.touch("key")
+    @cache.touch("key", 60)
+  end
 end
