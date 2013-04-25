@@ -10,6 +10,12 @@ class MemcacheMockTest < Test::Unit::TestCase
     assert_equal( {}, @cache.instance_variable_get( :@values ) )
   end
 
+  def test_clear
+    @cache.set( "key", "test_value" )
+    @cache.clear
+    assert_equal( {}, @cache.instance_variable_get( :@values ) )
+  end
+
   def test_incr_when_key_not_exists
     @cache.incr( "key", "value", nil, "default_value" )
     assert_equal( "default_value", @cache.get( "key" ))
