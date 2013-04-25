@@ -2,7 +2,7 @@ require "memcache_mock/version"
 
 class MemcacheMock
   def initialize( )
-    @values = {}
+    initialize_store
   end
 
   def incr( key, value, ttl, default_value )
@@ -11,6 +11,10 @@ class MemcacheMock
     else
       @values[key] = default_value
     end
+  end
+
+  def clear
+    initialize_store
   end
 
   def get( key )
@@ -59,5 +63,11 @@ class MemcacheMock
   end
 
   def touch(key, ttl = nil)
+  end
+
+private
+
+  def initialize_store
+    @values = {}
   end
 end
