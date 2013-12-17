@@ -22,6 +22,18 @@ class MemcacheMockTest < Test::Unit::TestCase
     @cache.incr( "key", "value", nil, nil )
   end
 
+  def test_decr_when_key_not_exists
+    @cache.decr( "key", "value", nil, "default_value" )
+    assert_equal( "default_value", @cache.get( "key" ))
+  end
+
+  def test_decr
+    @cache.set( "key", "original_value" )
+    @cache.expects( :substract ).with( "key", "value" )
+
+    @cache.decr( "key", "value", nil, nil )
+  end
+
   def test_get_when_key_not_exists
     assert_equal( nil, @cache.get( "key" ) )
   end
@@ -63,6 +75,13 @@ class MemcacheMockTest < Test::Unit::TestCase
     @cache.append( "key", "|value2" )
 
     assert_equal( "value1|value2", @cache.get( "key" ) )
+  end
+
+  def test_substract
+    @cache.set( "key", 7 )
+    @cache.substract( "key", 5 )
+
+    assert_equal( 2, @cache.get( "key" ) )
   end
 
   def test_fetch

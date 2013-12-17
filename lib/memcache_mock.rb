@@ -13,6 +13,14 @@ class MemcacheMock
     end
   end
 
+  def decr( key, value, ttl, default_value)
+    if @values[key]
+      substract( key, value )
+    else
+      @values[key] = default_value
+    end
+  end
+
   def get( key )
     @values.fetch(key, nil)
   end
@@ -33,6 +41,12 @@ class MemcacheMock
   def append( key, value )
     if @values[key]
       @values[key] += value
+    end
+  end
+
+  def substract( key, value )
+    if @values[key]
+      @values[key] -= value
     end
   end
 
