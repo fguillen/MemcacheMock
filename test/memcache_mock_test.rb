@@ -8,6 +8,7 @@ class MemcacheMockTest < Test::Unit::TestCase
   def test_initialize
     assert( @cache.is_a? MemcacheMock )
     assert_equal( {}, @cache.instance_variable_get( :@values ) )
+    assert_equal( -1, lambda(&MemcacheMock.method(:new)).arity)
   end
 
   def test_incr_when_key_not_exists

@@ -1,7 +1,7 @@
 require "memcache_mock/version"
 
 class MemcacheMock
-  def initialize( )
+  def initialize( *nodes )
     @values = {}
   end
 
