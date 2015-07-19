@@ -77,6 +77,23 @@ class MemcacheMockTest < Test::Unit::TestCase
     assert_equal( "value1|value2", @cache.get( "key" ) )
   end
 
+  def test_add
+    assert_equal( true, @cache.add( "key", "value" ) )
+  end
+
+  def test_add_when_key_exists
+    @cache.set( "key", "value" )
+    assert_equal( false, @cache.add( "key", "value" ) )
+  end
+
+  def test_add_when_expired_key_exists
+    @cache.set( "key", "value", 5 )
+
+    Timecop.freeze(Time.now + 6) do
+      assert_equal( true, @cache.add( "key", "value" ) )
+    end
+  end
+
   def test_substract
     @cache.set( "key", 7 )
     @cache.substract( "key", 5 )
