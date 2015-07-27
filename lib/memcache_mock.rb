@@ -38,6 +38,25 @@ class MemcacheMock
     @values[key] = yield( @values.fetch(key, default ))
   end
 
+  def add( key, value, ttl=nil, options = nil )
+    unless @values.include? key
+      @values[key] = value
+      true
+    else
+      false
+    end
+  end
+
+  #Compare And Swap
+  def cas( key, ttl = nil, options = nil )
+    if @values.include? key
+      @values[key] = yield @values[key]
+      true
+    else
+      nil
+    end
+  end
+
   def append( key, value )
     if @values[key]
       @values[key] += value
